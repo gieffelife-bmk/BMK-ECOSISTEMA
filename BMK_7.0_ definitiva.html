@@ -1,0 +1,1124 @@
+			<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ANAMNESI
+DELL' ECOSISTEMA PERSONALE</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1000px;margin:auto;padding:10px}
+h1{
+    text-align:center;
+    font-size:38px;
+    margin-bottom:40px;
+}
+.section{
+    border:1px solid #ddd;
+    border-radius:6px;
+    padding:4px;
+    margin:2px 0;
+    height:auto;
+}
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    align-items:start;
+}
+@media(max-width:700px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+label{display:block;margin:0px 0}
+h2{
+    margin:0 0 4px 0;
+    font-size:16px;
+}
+
+.section{
+    font-size:14px;
+}
+
+h3{
+    margin:8px 0 4px 0;
+}
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=date],
+select{
+    width:100%;
+    box-sizing:border-box;
+    padding:8px;
+    margin:4px 0;
+    height:38px;
+}
+button{
+    padding:14px;
+    font-size:18px;
+    font-weight:bold;
+    margin-top:10px;
+}
+#report{white-space:pre-wrap;border:1px solid #888;padding:12px;margin-top:20px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div id="loginBox" style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
+
+<div style="
+width:320px;
+padding:30px;
+border:1px solid #ddd;
+border-radius:12px;
+text-align:center;
+font-family:Arial;
+">
+
+<h2>BMK Ecosistema</h2>
+
+<p>Inserisci la password</p>
+
+<div style="position:relative;">
+
+<input
+type="password"
+id="passwordInput"
+placeholder="Password"
+style="width:100%;padding:10px;padding-right:45px;box-sizing:border-box;">
+
+<button
+type="button"
+onclick="togglePassword()"
+style="
+position:absolute;
+right:5px;
+top:5px;
+padding:5px 10px;
+margin:0;">
+👁
+</button>
+
+</div>
+
+<button onclick="verificaPassword()">
+Accedi
+</button>
+
+<p id="erroreLogin" style="color:red;display:none;">
+Password non corretta
+</p>
+
+</div>
+</div>
+
+<div id="contenutoSito" style="display:none;">
+<h1>Anamnesi dell'Ecosistema Personale</h1>
+<div class="section">
+<h2>Dati Cliente</h2>
+
+<div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:8px;">
+
+    <div style="flex:15;">
+        <label>Nome e Cognome</label>
+       <input type="text" id="nome" style="width:400px;">
+    </div>
+
+   <div style="width:65px;">
+    <label>Data</label>
+    <input
+type="date"
+id="data"
+style="width:90px; padding:15px;">
+</div>
+
+<div style="width:90px; margin-left:20px;">
+    <label>Età</label>
+    <input type="number" id="eta">
+</div>
+
+<div style="width:90px; margin-left:10px;">
+    <label>Sesso</label>
+    <select id="sesso" style="width:100%;padding:8px;">
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select>
+</div>
+
+</div>
+
+<div style="display:flex; gap:10px; align-items:flex-end;">
+    <div style="flex:2;">
+        <label>Professione</label>
+        <input type="text" id="professione">
+    </div>
+
+    <div style="flex:1;">
+        <label>Città</label>
+        <input type="text" id="citta">
+    </div>
+
+    <div style="width:70px;">
+        <label>Prov.</label>
+        <input type="text" id="provincia">
+    </div>
+</div>
+
+<div style="display:flex; gap:10px;">
+    <div style="flex:1;">
+        <label>Telefono</label>
+        <input type="text" id="telefono">
+    </div>
+
+    <div style="flex:2;">
+        <label>Email</label>
+        <input type="email" id="email">
+    </div>
+</div>
+
+<div style="display:flex; gap:10px;">
+    <div style="flex:1;">
+        <label>Operatore:</label>
+        <input type="text" id="consulente">
+    </div>
+</div>
+
+</div>
+<div class="grid">
+<div class="section">
+<h2>Riposo e Recupero</h2>
+
+<h2>Ore di sonno</h2>
+
+<label><input type="checkbox" class="riposo"> Dormo 5 ore o meno</label>
+<label><input type="checkbox" class="riposo"> Dormo circa 6 ore</label>
+<label><input type="checkbox" class="neutro"> Dormo circa 7 ore</label>
+<label><input type="checkbox" class="riposo"> Lavoro su turni o dormo in orari irregolari</label>
+
+<br>
+
+<h3>Qualità del sonno</h3>
+
+<label><input type="checkbox" class="riposo"> Difficoltà ad addormentarmi</label>
+<label><input type="checkbox" class="riposo"> Mi sveglio durante la notte</label>
+<label><input type="checkbox" class="riposo"> Mi sveglio prima del previsto</label>
+<label><input type="checkbox" class="riposo"> Mi sveglio stanco</label>
+<label><input type="checkbox" class="riposo"> Dormo vicino a dispositivi elettronici</label>
+
+</div>
+
+<div class="section">
+<h2>Energia e Vitalità</h2>
+
+<label><input type="checkbox" class="energia"> Stanchezza frequente</label>
+
+<label><input type="checkbox" class="energia"> Cali energetici durante la giornata</label>
+
+<label><input type="checkbox" class="energia"> Difficoltà ad attivarmi al mattino</label>
+
+<label><input type="checkbox" class="energia"> Recupero fisico lento</label>
+
+<label><input type="checkbox" class="energia"> Difficoltà di concentrazione</label>
+
+<label><input type="checkbox" class="energia"> Scarsa lucidità mentale</label>
+
+<label><input type="checkbox" class="energia"> Disfunzioni ormonali o squilibri percepiti</label>
+
+</div>
+
+
+<div class="section">
+<h2>Abitudini e Lavoro</h2>
+
+<label><input type="checkbox" class="lavoro"> Elettrosensibilità accertata</label>
+
+<label><input type="checkbox" class="abitudini"> Utilizzo intensivo di dispositivi elettronici (PC, smartphone, tablet)</label>
+
+<label><input type="checkbox" class="lavoro"> Lavoro in ambienti tecnologici</label>
+
+<label><input type="checkbox" class="lavoro"> Lavoro con apparecchiature professionali</label>
+
+<label><input type="checkbox" class="lavoro"> Guida professionale o frequenti trasferte</label>
+</div>
+<div class="section"
+style="
+background:#f2faf2;
+border:1px solid #cfe6cf;
+">
+
+<h2>Miglioramento delle Performance</h2>
+
+<label><input type="checkbox" class="performance"> Migliorare prestazioni sportive</label>
+
+<label><input type="checkbox" class="performance"> Migliorare il recupero muscolare</label>
+
+<label><input type="checkbox" class="performance"> Aumentare resistenza fisica</label>
+
+<label><input type="checkbox" class="performance"> Aumentare energia durante l'attività</label>
+
+<label><input type="checkbox" class="performance"> Migliorare concentrazione e focus</label>
+
+<label><input type="checkbox" class="performance"> Mantenere un corpo tonico e attivo</label>
+
+</div>
+<div class="section">
+<h2>Dolore e Tensioni</h2>
+
+<label><input type="checkbox" class="postura"> Cervicale e collo</label>
+
+<label><input type="checkbox" class="postura"> Tensione alle spalle</label>
+
+<label><input type="checkbox" class="postura"> Mal di schiena lombare</label>
+
+<label><input type="checkbox" class="postura"> Mal di testa frequente</label>
+
+<label><input type="checkbox" class="postura"> Crampi notturni</label>
+
+<label><input type="checkbox" class="postura"> Rigidità articolare</label>
+
+<label><input type="checkbox" class="postura"> Stato infiammatorio ricorrente</label>
+
+<label><input type="checkbox" class="postura"> Sensazione di gonfiore o ritenzione</label>
+
+<label><input type="checkbox" class="postura"> Dolori muscolari diffusi</label>
+
+<label><input type="checkbox" class="postura"> Fibromialgia o sintomi simili</label>
+
+
+<label><input type="checkbox" class="postura"> Problemi reumatici</label>
+
+
+<label><input type="checkbox" class="postura"> Reflusso</label>
+
+<label><input type="checkbox" class="postura"> Prurito o irritazioni ricorrenti</label>
+
+
+</div>
+<div class="section"
+style="
+background:#f2f7ff;
+border:1px solid #cfdcf7;
+">
+
+<h2>Esigenze Specifiche Localizzate</h2>
+
+<label><input type="checkbox" class="localizzato"> Tunnel carpale</label>
+
+<label><input type="checkbox" class="localizzato"> Epicondilite</label>
+
+<label><input type="checkbox" class="localizzato"> Dolore a polso o mano</label>
+
+<label><input type="checkbox" class="localizzato"> Dolore alla spalla</label>
+
+<label><input type="checkbox" class="localizzato"> Dolore al ginocchio</label>
+
+<label><input type="checkbox" class="localizzato"> Dolore a caviglia o piede</label>
+
+<label><input type="checkbox" class="localizzato"> Torcicollo frequente</label>
+
+<label><input type="checkbox" class="localizzato"> Molte ore in piedi durante la giornata</label>
+
+<label><input type="checkbox" class="localizzato"> Necessità di supporto addominale e lombare</label>
+</div>
+<div class="section">
+<h2>Circolazione</h2>
+<label><input type="checkbox" class="circolazione"> Gambe pesanti</label>
+<label><input type="checkbox" class="circolazione"> Mani fredde</label>
+<label><input type="checkbox" class="circolazione"> Piedi freddi</label>
+<label><input type="checkbox" class="circolazione"> Formicolii</label>
+<label><input type="checkbox" class="circolazione"> Gonfiore</label>
+<label><input type="checkbox" class="circolazione"> Ritenzione idrica</label>
+</div>
+
+<div class="section">
+<h2>Ecosistema Ambientale</h2>
+
+<label><input type="checkbox" class="casa"> Wi-Fi acceso 24h</label>
+
+<label><input type="checkbox" class="casa"> Ripetitore Wi-Fi in camera da letto</label>
+
+<label><input type="checkbox" class="casa"> TV in camera da letto</label>
+
+<label><input type="checkbox" class="casa"> Impianti di domotica e/o allarme attivi</label>
+
+<label><input type="checkbox" class="casa"> Antenne / ripetitori nelle vicinanze</label>
+</div>
+
+<div class="section">
+<h2>Ecosistema Lavorativo</h2>
+<label><input type="checkbox" class="lavoro"> Computer oltre 6 ore</label>
+
+<label><input type="checkbox" class="lavoro"> Ambiente tecnologico intenso</label>
+<label><input type="checkbox" class="lavoro"> Lavoro sedentario</label>
+</div>
+
+<div class="section">
+<h2>Abitudini Quotidiane</h2>
+<label><input type="checkbox" class="abitudini"> Bevo meno di 1,5 litri</label>
+<label><input type="checkbox" class="abitudini"> Nessuna attività fisica</label>
+<label><input type="checkbox" class="abitudini"> Ceno tardi</label>
+<label><input type="checkbox" class="abitudini"> Sonno irregolare</label>
+</div>
+
+<div class="section">
+<h2>Profilo Corporeo</h2>
+
+<label><input type="checkbox" class="corporeo"> Sovrappeso percepito</label>
+
+<label><input type="checkbox" class="corporeo"> Mobilità ridotta</label>
+
+<label><input type="checkbox" class="corporeo"> Rigidità articolare frequente</label>
+
+<label><input type="checkbox" class="corporeo"> Sensazione di infiammazione frequente</label>
+
+<label><input type="checkbox" class="corporeo"> Recupero fisico lento</label>
+
+</div>
+
+<div class="section">
+<h2>Stress e Recupero</h2>
+
+<label><input type="checkbox" class="stress"> Stress percepito elevato</label>
+
+<label><input type="checkbox" class="stress"> Difficoltà a rilassarsi</label>
+
+<label><input type="checkbox" class="stress"> Nervosismo frequente</label>
+
+<label><input type="checkbox" class="stress"> Affaticamento mentale</label>
+
+<label><input type="checkbox" class="stress"> Problemi presenti da oltre 6 mesi</label>
+
+</div>
+
+
+<div class="section">
+<h2>Obiettivi Prioritari (massimo 2 selezioni)</h2>
+
+<label><input type="checkbox" class="obiettivo"> Dormire meglio</label>
+
+<label><input type="checkbox" class="obiettivo"> Ridurre dolori e tensioni</label>
+
+<label><input type="checkbox" class="obiettivo"> Aumentare energia e vitalità</label>
+
+<label><input type="checkbox" class="obiettivo"> Gestire meglio stress e recupero</label>
+
+<label><input type="checkbox" class="obiettivo"> Migliorare il benessere generale</label>
+
+</div>
+
+<div class="section">
+    <h3>Percezione delle problematiche</h3>
+
+    <label>
+        Quanto incidono oggi le problematiche indicate sul tuo benessere?
+    </label>
+
+    <select id="percezione" style="width:100%;padding:10px;margin-top:8px;">
+       <option value="0">ASSENTI</option>
+<option value="2">LIEVI</option>
+<option value="4">SOPPORTABILI</option>
+<option value="6">MODERATI</option>
+<option value="8">IMPORTANTI</option>
+<option value="10">ELEVATI</option>
+    </select>
+
+</div>
+
+</div> <!-- chiude la grid -->
+
+<div style="display:flex; gap:10px; margin-top:15px;">
+    <button onclick="valuta()">VALUTA</button>
+    <button onclick="salvaPDF()">SALVA PDF</button>
+    <button onclick="salvaReport()">SALVA REPORT</button>
+</div>
+
+<div id="report"
+style="
+margin-top:20px;
+padding:15px;
+border:2px solid #cccccc;
+border-radius:10px;
+background:#ffffff;
+min-height:220px;
+white-space:pre-wrap;
+width:100%;
+box-sizing:border-box;
+">
+Il report comparirà qui.
+</div>
+
+<div
+style="
+display:flex;
+gap:20px;
+margin-top:20px;
+align-items:stretch;
+"
+>
+
+<div id="noteOperatoreBox"
+style="
+flex:1;
+padding:15px;
+border:2px solid #4a90e2;
+background:#eef6ff;
+border-radius:10px;
+">
+
+<h3>NOTE DELL'OPERATORE</h3>
+
+<textarea
+id="noteOperatore"
+placeholder="Inserire qui osservazioni e indicazioni personalizzate..."
+style="
+width:100%;
+height:180px;
+padding:10px;
+box-sizing:border-box;
+border:1px solid #ccc;
+border-radius:6px;
+">
+</textarea>
+
+</div>
+
+<div id="boxOperatore"
+style="
+flex:1;
+display:none;
+padding:15px;
+border:2px solid #4a90e2;
+background:#eef6ff;
+border-radius:10px;
+">
+</div>
+
+</div>
+
+<!-- BMK CUSTOM AREA -->
+
+<script>
+function countClass(c){
+ return document.querySelectorAll('input.'+c+':checked').length;
+}
+document.querySelectorAll('.obiettivo').forEach(cb => {
+
+ cb.addEventListener('change', function(){
+
+   let selezionati =
+   document.querySelectorAll('.obiettivo:checked');
+
+   if(selezionati.length > 2){
+      this.checked = false;
+      alert('È possibile selezionare massimo 2 obiettivi prioritari.');
+   }
+
+ });
+
+});
+function valuta(){
+ const riposo=countClass('riposo');
+const energia=countClass('energia');
+const postura=countClass('postura');
+
+const casa=countClass('casa');
+const lavoro=countClass('lavoro');
+const abitudini=countClass('abitudini');
+const corporeo=countClass('corporeo');
+const eta = parseInt(document.getElementById('eta').value) || 0;
+const percezione = parseInt(document.getElementById('percezione').value) || 0;
+const stress = countClass('stress');
+const circolazione = countClass('circolazione');
+const performance = countClass('performance');
+const localizzato = countClass('localizzato');
+let obiettivi = [];
+
+document
+.querySelectorAll('.obiettivo:checked')
+.forEach(el => {
+
+ obiettivi.push(
+  el.parentElement.textContent.trim()
+ );
+
+});
+
+let obiettivoBioEnergy =
+
+obiettivi.includes('Dormire meglio') ||
+
+obiettivi.includes('Ridurre dolori e tensioni') ||
+
+obiettivi.includes('Migliorare il benessere generale');
+let areeBioEnergy = 0;
+
+if(riposo >= 2) areeBioEnergy++;
+
+if(energia >= 2) areeBioEnergy++;
+
+if(postura >= 2) areeBioEnergy++;
+
+let aree=[
+ ['Riposo e Recupero',riposo],
+['Ecosistema Ambientale',casa],
+ ['Energia e Vitalità', energia + abitudini + performance],
+ ['Postura e Tensioni',postura],
+ ['Circolazione',circolazione],
+ ['Profilo Corporeo',corporeo],
+ ['Stress e Recupero',stress]
+
+];
+console.log(
+'casa=', casa,
+'lavoro=', lavoro,
+'riposo=', riposo,
+'energia=', energia,
+'postura=', postura,
+'circolazione=', circolazione,
+'corporeo=', corporeo,
+'stress=', stress,
+'abitudini=', abitudini
+);
+ aree.sort((a,b)=>b[1]-a[1]);
+
+ let sol=[];
+ 
+
+let localizzati = [];
+
+document
+.querySelectorAll('.localizzato:checked')
+.forEach(el => {
+
+    localizzati.push(
+        el.parentElement.textContent.trim()
+    );
+
+});
+
+// AREA DOMINANTE
+let principale = aree[0][0];
+
+// RIPOSO E RECUPERO
+if(principale=='Stress e Recupero'){
+   
+
+    if(riposo>=2){
+        sol.push('Kit Riposo FIR (Cuscino + Federa)');
+        sol.push('Sistema Sonno BioEnergy Completo');
+    }
+
+}
+// DOLORE E TENSIONI
+if(principale=='Postura e Tensioni'){
+
+
+    sol.push('Supporto FIR Localizzato');
+
+    sol.push('Solette Biofisiche Posturali');
+
+    sol.push('Sistema Sonno BioEnergy Completo');
+
+}
+if(
+    circolazione >= 2 ||
+    corporeo >= 2
+){
+
+    sol.push('Solette Biofisiche Posturali');
+
+}
+if(
+    postura >= 3
+){
+
+    sol.push('Supporto FIR Localizzato');
+
+}
+
+if(
+
+    localizzati.includes('Tunnel carpale')
+
+    ||
+
+    localizzati.includes('Epicondilite')
+
+    ||
+
+    localizzati.includes('Dolore a polso o mano')
+
+    ||
+
+    localizzati.includes('Dolore alla spalla')
+
+    ||
+
+    localizzati.includes('Torcicollo frequente')
+
+){
+
+    sol.push('Supporto FIR Localizzato');
+
+}
+if(
+
+    localizzati.includes('Dolore al ginocchio')
+
+){
+
+    sol.push('Supporto FIR Localizzato');
+
+    sol.push('Solette Biofisiche Posturali');
+
+}
+if(
+
+    localizzati.includes('Dolore a caviglia o piede')
+
+){
+
+    sol.push('Solette Biofisiche Posturali');
+
+}
+if(
+
+    localizzati.includes('Molte ore in piedi durante la giornata')
+
+){
+
+    sol.push('Solette Biofisiche Posturali');
+
+}
+if(
+
+    localizzati.includes('Necessità di supporto addominale e lombare')
+
+){
+
+    sol.push('Panciera FIR');
+
+}
+let bioEnergyOK =
+
+(
+    riposo >= 2 &&
+    postura >= 1
+)
+
+||
+
+obiettivi.includes('Dormire meglio')
+
+||
+
+obiettivi.includes('Ridurre dolori e tensioni')
+
+||
+
+obiettivi.includes('Migliorare il benessere generale');
+
+if(bioEnergyOK){
+
+    sol.push('BioEnergy FIR Premium 7.0');
+
+}
+
+// ENERGIA
+if(principale=='Energia e Vitalità'){
+    sol.push('Abbigliamento FIR');
+    sol.push('Sistema Sonno BioEnergy Completo');
+}
+// AMBIENTE
+if(principale=='Ecosistema Ambientale'){
+    sol.push('Ray Shield Biospace Advance');
+sol.push('Car & Tab Defend Waves');
+
+    if(riposo>=2){
+        sol.push('Sistema Sonno BioEnergy Completo');
+    }
+
+    if(lavoro>=2){
+        sol.push('Copriseduta FIR con Schienale');
+    }
+}
+    
+let indice =
+
+(riposo * 4) +
+
+(stress * 4) +
+
+(postura * 4) +
+
+(casa * 3) +
+
+(circolazione * 3) +
+
+(corporeo * 2) +
+
+(energia * 2) +
+
+(abitudini * 1) +
+
+(lavoro * 1);
+// Correttivo età su problematiche articolari/posturali
+
+if(postura >= 2 || corporeo >= 2){
+
+    if(eta >= 45 && eta < 60){
+        indice += 1;
+    }
+
+    if(eta >= 60 && eta < 75){
+        indice += 2;
+    }
+
+    if(eta >= 75){
+        indice += 3;
+    }
+// Correttivo percezione problematiche
+
+if(percezione >= 6){
+    indice += 1;
+}
+
+if(percezione >= 8){
+    indice += 2;
+}
+}
+let totaleSpunte =
+
+riposo +
+energia +
+postura +
+casa +
+lavoro +
+abitudini +
+corporeo +
+stress +
+circolazione +
+performance +
+localizzato;
+
+
+if(indice === 0){
+    document.getElementById('report').textContent =
+    'Seleziona almeno una voce prima di effettuare la valutazione.';
+    return;
+}
+
+if(totaleSpunte < 3){
+    document.getElementById('report').textContent =
+    'Per una valutazione attendibile è consigliabile rilevare almeno 3 indicatori significativi.';
+    return;
+}
+let maxIndice =60;
+let percentuale = Math.round((indice / maxIndice) * 100);
+
+if(percentuale > 100){
+    percentuale = 100;
+}
+
+let livello='';
+
+if(percentuale<=15)
+    livello='CRITICITÀ CONTENUTE';
+
+else if(percentuale<=35)
+    livello='CRITICITÀ MODERATE';
+
+else if(percentuale<=55)
+    livello='CRITICITÀ SIGNIFICATIVE';
+
+else if(percentuale<=75)
+    livello='CRITICITÀ ELEVATE';
+
+else
+    livello='CRITICITÀ DIFFUSE';
+    
+// PREVENZIONE E MANTENIMENTO
+if(percentuale <= 15 && indice < 3){
+    sol = [];
+
+    sol.push('BioEnergy FIR Premium 7.0');
+    sol.push('Ray Shield Biospace Advance');
+}
+
+  if(aree[0][0]=='Ecosistema Ambientale'){
+        sol.push('Ray Shield Biospace Advance');
+    } 
+    else {
+        sol.push('BioEnergy FIR Premium 7.0');
+    }
+
+// CASI COMPLESSI
+if(indice>=12){
+    sol.unshift('BioEnergy FIR Premium 7.0');
+}
+sol = [...new Set(sol)];
+let principali = [sol[0]].filter(Boolean);
+let complementari = sol.slice(1);
+let indicazioni = '';
+
+let accessorio = 'Tag Defend per smartphone e dispositivi personali';
+
+document.getElementById('boxOperatore').style.display = 'block';
+
+document.getElementById('boxOperatore').innerHTML =
+
+'<h3 style="margin-top:0">INDICAZIONI PER L\'OPERATORE</h3>' +
+
+'<b>SOLUZIONE PRINCIPALE</b><br>' +
+(principali.length ? '• ' + principali.join('<br>• ') : 'Nessuna') +
+
+'<br><br><b>SOLUZIONI COMPLEMENTARI</b><br>' +
+(complementari.length ? '• ' + complementari.join('<br>• ') : 'Nessuna') +
+
+'<br><br><b>ACCESSORIO CONSIGLIATO</b><br>' +
+'• ' + accessorio;
+
+document.querySelectorAll('input[type=checkbox]:checked').forEach(cb => {
+
+    let testo = cb.parentElement.textContent.trim();
+
+    if(testo){
+        indicazioni += '- ' + testo + '\n';
+    }
+
+});
+let testoPercezione = '';
+
+if(document.getElementById('percezione').value != '0'){
+
+    testoPercezione =
+    'Il cliente dichiara che i sintomi sono: ' +
+    document.getElementById('percezione').options[
+    document.getElementById('percezione').selectedIndex
+    ].text +
+    '\n\n';
+
+}
+ document.getElementById('report').textContent =
+ 
+'INDICE AEP: ' + percentuale + '%\n' +
+'LIVELLO AEP: ' + livello + '\n\n' +
+
+'' +
+'Data Valutazione: ' + document.getElementById('data').value + '\n\n' +
+'Cliente: ' + document.getElementById('nome').value + '\n' +
+'Età: ' + document.getElementById('eta').value + '\n' +
+'Sesso: ' + document.getElementById('sesso').value + '\n' +
+testoPercezione +
+
+
+'OBIETTIVI PRIORITARI INDICATI DAL CLIENTE\n' +
+
+(obiettivi.length
+ ? '- ' + obiettivi.join('\n- ')
+ : '- Non specificati')
++ '\n\nINFORMAZIONI FORNITE DAL CLIENTE\n\n' +
+indicazioni +
+'\n\n' +
+'OPERATORE\n\n' +
+
+document.getElementById('consulente').value +
+
+'\n\n' +
+
+
+'SBILANCIAMENTI EMERSI\n' +
+'1) ' + aree[0][0] + '\n' +
+'2) ' + aree[1][0] + '\n' +
+'3) ' + aree[2][0] + '\n\n' +
+'\nOSSERVAZIONI\n\n' +
+
+(aree[0][0]=='Riposo e Recupero'
+? "La qualità del recupero notturno rappresenta l'area prioritaria da approfondire."
+: aree[0][0]=='Ecosistema Ambientale'
+? "L'esposizione quotidiana a fonti tecnologiche e fattori ambientali merita particolare attenzione."
+: aree[0][0]=='Energia e Vitalità'
+? 'I segnali raccolti suggeriscono una possibile riduzione della vitalità percepita durante la giornata.'
+: aree[0][0]=='Stress e Recupero'
+? 'I segnali rilevati suggeriscono un carico di stress elevato e una ridotta capacità di recupero psicofisico.'
+: aree[0][0]=='Circolazione'
+? 'I segnali rilevati suggeriscono una possibile alterazione del microcircolo e della circolazione periferica.'
+: aree[0][0]=='Profilo Corporeo'
+? 'La condizione fisica generale e la capacità di recupero corporeo meritano un approfondimento specifico.'
+: "Le tensioni muscolari e posturali rappresentano l'area principale da monitorare."
+)+
+
+(document.getElementById('noteOperatore').value.trim() !== ''
+ ? '\n\nNOTE DELL\'OPERATORE\n\n' +
+   document.getElementById('noteOperatore').value
+ : ''
+);
+
+
+}
+function salvaReport(){
+
+ let datiCliente =
+
+'CLIENTE\n' +
+'Nome: ' + document.getElementById('nome').value + '\n' +
+'Data: ' + document.getElementById('data').value + '\n' +
+'Età: ' + document.getElementById('eta').value + '\n' +
+'Professione: ' + document.getElementById('professione').value + '\n' +
+'Città: ' + document.getElementById('citta').value + '\n' +
+'Provincia: ' + document.getElementById('provincia').value + '\n' +
+'Telefono: ' + document.getElementById('telefono').value + '\n' +
+'Email: ' + document.getElementById('email').value + '\n' +
+'Operatore: ' + document.getElementById('consulente').value + '\n\n';
+
+ let report =
+document.getElementById('report').textContent;
+
+let noteOperatore =
+document.getElementById('noteOperatore').value;
+
+let testoCompleto =
+datiCliente +
+report +
+(
+  noteOperatore.trim() !== ''
+  ? '\n\nNOTE DELL\'OPERATORE\n\n' + noteOperatore
+  : ''
+);
+
+ let nome =
+ document.getElementById('nome').value || 'Cliente';
+
+ let blob =
+ new Blob([testoCompleto], {type:'text/plain'});
+
+ let a =
+ document.createElement('a');
+
+ a.href =
+ URL.createObjectURL(blob);
+
+ a.download =
+ 'Anamnesi_' + nome + '.txt';
+
+ a.click();
+}
+function salvaPDF(){
+
+ const { jsPDF } = window.jspdf;
+
+ let pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+});
+
+let nome =
+document.getElementById('nome').value || 'Cliente';
+
+let report =
+document.getElementById('report').textContent;
+
+let reportCliente = report;
+
+let noteOperatore =
+document.getElementById('noteOperatore').value;
+
+reportCliente = reportCliente.replace(
+/SOLUZIONI PRINCIPALI[\s\S]*?SBILANCIAMENTI EMERSI/,
+'SBILANCIAMENTI EMERSI'
+);
+
+if(noteOperatore.trim() !== ''){
+    reportCliente +=
+    '\n\nNOTE DELL\'OPERATORE\n\n' +
+    noteOperatore;
+}
+
+let righe =
+pdf.splitTextToSize(reportCliente,180);
+
+pdf.setFont('helvetica','bold');
+pdf.setFontSize(32)
+pdf.setFontSize(20);
+pdf.setFontSize(22);
+pdf.text('ANAMNESI DELL\'ECOSISTEMA PERSONALE',105,20,{align:'center'});
+
+pdf.setFont('helvetica','normal');
+pdf.setFontSize(11);
+
+pdf.setFont('helvetica','normal');
+pdf.setFontSize(11);
+
+let y = 50;
+
+righe.forEach(riga => {
+
+    if (y > 250) {
+
+        pdf.addPage();
+        y = 20;
+
+    }
+
+    pdf.text(riga, 15, y);
+    y += 6;
+
+});
+
+pdf.save('Anamnesi_' + nome + '.pdf');
+
+}
+const PASSWORD_BMK = "BMK2026";
+function togglePassword(){
+
+    let campo =
+    document.getElementById('passwordInput');
+
+    if(campo.type === 'password'){
+        campo.type = 'text';
+    }else{
+        campo.type = 'password';
+    }
+
+}
+function verificaPassword(){
+
+    let passwordInserita =
+    document.getElementById('passwordInput').value;
+
+    if(passwordInserita === PASSWORD_BMK){
+
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('contenutoSito').style.display='block';
+
+    sessionStorage.setItem('BMK_LOGIN','OK');
+
+}else{
+        document.getElementById('erroreLogin').style.display='block';
+
+    }
+}
+
+if(sessionStorage.getItem('BMK_LOGIN') === 'OK'){
+
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('contenutoSito').style.display='block';
+
+}
+</script>
+</body>
+</html>
+
